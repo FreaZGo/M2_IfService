@@ -1,0 +1,22 @@
+package fr.uge.sw.convert;
+
+import java.rmi.RemoteException;
+
+import javax.xml.rpc.ServiceException;
+
+import com.currencysystem.webservices.currencyserver.CurncsrvReturnRate;
+import com.currencysystem.webservices.currencyserver.CurrencyServerLocator;
+import com.currencysystem.webservices.currencyserver.CurrencyServerSoap;
+
+public class ConvertClient {
+	public double convert (double montant) throws RemoteException, ServiceException {
+		CurrencyServerSoap currencySystem = new CurrencyServerLocator().getCurrencyServerSoap(); 
+		
+		return montant * (double) currencySystem.rate("", "EUR", "JPY", false, "", CurncsrvReturnRate.curncsrvReturnRateNumber, "", "");
+	}
+	
+	public static void main(String[] args) {
+		
+		System.out.println(convert(100));
+	}
+}

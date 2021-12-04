@@ -1,0 +1,3 @@
+INDEX VERSION 1.131
+/home/remy/Documents/Master2/Web_REST/Projet_IfService/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/303124155.index
+/BanqueClient/src/main/java

@@ -1,0 +1,23 @@
+package fr.uge.sw.application;
+
+import java.util.Scanner;
+
+public class Application {
+	public void run() {
+		try (FileChannel out = FileChannel.open(pOut, StandardOpenOption.WRITE, StandardOpenOption.CREATE);
+				Scanner sc = new Scanner(System.in)) {
+
+			while (sc.hasNextLong()) {
+				long l = sc.nextLong();
+				bb.putLong(l);
+				bb.flip();
+				out.write(bb);
+				bb.clear();
+
+			}
+
+			out.close();
+			sc.close();
+		}
+	}
+}

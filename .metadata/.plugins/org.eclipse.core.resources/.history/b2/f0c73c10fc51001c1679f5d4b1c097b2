@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+encoding//src/main/java/com/currencysystem/webservices/currencyserver/CurncsrvMessageType.java=UTF-8
+encoding//src/main/java/com/currencysystem/webservices/currencyserver/CurncsrvReturnTime.java=UTF-8
+encoding//src/main/java/com/currencysystem/webservices/currencyserver/CurrencyFeeds.java=UTF-8
+encoding//src/main/java/com/currencysystem/webservices/currencyserver/CurrencyToCountry.java=UTF-8
+encoding//src/main/java/fr/uge/sw/banque/Compte.java=UTF-8
+encoding//src/main/java/fr/uge/sw/banque/CompteService.java=UTF-8
+encoding//src/main/java/fr/uge/sw/banque/CompteServiceLocator.java=UTF-8
+encoding//src/main/java/fr/uge/sw/banque/CompteSoapBindingStub.java=UTF-8

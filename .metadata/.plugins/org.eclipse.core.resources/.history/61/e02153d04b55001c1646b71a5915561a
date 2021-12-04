@@ -1,0 +1,89 @@
+package fr.uge.sw.user;
+
+import java.rmi.RemoteException;
+import java.util.HashMap;
+
+import fr.uge.service_web.project.shared.Ecorpsharedinterface;
+import fr.uge.service_web.project.shared.IOffer;
+
+public class User {
+	private String iduser;
+	private String firstName;
+	private String lastName;
+	private String address;
+	private String email;
+	
+	private final Cart cart = new Cart();
+	
+	public User(String firstName, String lastName, String address, String email) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
+		this.email = email;
+	}
+
+	public void putToCartOffer(IOffer offer, int qty) throws RemoteException {
+		if (qty > offer.getStock()) {
+			System.out.println("You cannot put qty > offer.stock");
+			return;
+		}
+		cart.putToCartOffer(offer, qty);
+	}
+	
+	public void removeOffer(IOffer offer, int qty) throws RemoteException {
+		cart.removeOffer(offer, 0);
+	}
+	
+	public void clearCart() {
+		cart.clearCart();
+	}
+	
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void sendCommand(Ecorpsharedinterface ecInteface) {
+		HashMap<IOffer, Integer> cartContent = cart.getCartContent();
+		//TODO - faire un for each dans le panier por faire une commande par offre.
+		/*
+		command.addCommand(String id, EPerson byer, IOffer offer,int qt);
+		*/
+		
+		cartContent.forEach((id, offer) -> {
+			try {
+				ecInteface.addpurshase(iduser, 0, 0);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+	}
+}

@@ -1,0 +1,74 @@
+package fr.uge.sw.Client;
+
+import java.rmi.RemoteException;
+
+import fr.uge.service_web.project.shared.IOffer;
+import fr.uge.sw.ECorp.EPerson;
+import fr.uge.sw.ECorp.EcorpInterface;
+
+public class User {
+	private String firstName;
+	private String lastName;
+	private String address;
+	private String email;
+	
+	private final Cart cart = new Cart();
+	
+	public Client(String firstName, String lastName, String address, String email) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
+		this.email = email;
+	}
+
+	public void addOffer(IOffer offer, int qty) throws RemoteException {
+		cart.addOffer(offer, qty);
+	}
+	
+	public void removeOffer(IOffer offer, int qty) throws RemoteException {
+		cart.removeOffer(offer, 0);
+	}
+	
+	public void clearCart() {
+		cart.clearCart();
+	}
+	
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void sendCommand(EcorpInterface command) {
+		//TODO - faire un for each dans le panier por faire une commande par offre.
+		/*
+		command.addCommand(String id, EPerson byer, IOffer offer,int qt);
+		*/
+	}
+}

@@ -1,0 +1,139 @@
+package fr.uge.sw.application;
+
+import java.net.MalformedURLException;
+import java.nio.channels.FileChannel;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.util.Scanner;
+
+import fr.uge.service_web.project.shared.IUser;
+import fr.uge.sw.marketplace.MarketPlace;
+import fr.uge.sw.user.User;
+
+public class Application {
+	private MarketPlace marketplace;
+	private User user;
+
+	private void init() throws MalformedURLException, RemoteException, NotBoundException {
+		marketplace = new MarketPlace();
+		marketplace.updateMarket();
+	}
+
+	public void run() throws MalformedURLException, RemoteException, NotBoundException {
+		boolean onApp = true;
+
+		init();
+
+
+		try (Scanner sc = new Scanner(System.in)) {
+			while (sc.hasNextLong() && onApp) {
+				String line = sc.nextLine();
+
+				String[] lineSplit = line.split(" ", 2);
+
+				switch (lineSplit[0]) {
+				case "/quit" :
+					onApp = false;
+					break;
+
+				case "/marketDisplay":
+					marketDisplay();
+					break;
+
+				case "/userDisplay":
+					userDisplay();
+					break;
+
+				case "/addCart":
+					addCart(lineSplit[1]);
+					break;
+
+				case "/connect":
+					connect(lineSplit[1]);
+					break;
+
+				case "/addUser":
+					addUser(lineSplit[1]);
+					break;
+
+				case "/priceDisplay":
+					userDisplay();
+					break;
+
+				case "/purchase":
+					purchase();
+					break;
+
+				default:
+					System.out.println("Unknow command");
+					break;
+				}
+
+			}
+			sc.close();
+		}
+	}
+
+	private void purchase() {
+		user.sendCommand(marketplace.getEcInterface());
+
+		// TODO Retrait de l'argent du compte en banque
+
+	}
+
+	private void addUser(String linesplit) throws RemoteException {
+		String idUser = marketplace.getEcInterface().getid();
+		String[] userLog = linesplit.split(" ");
+
+		if (userLog.length != 5) {
+			System.out.println("usage /addUser firstname lastname address mail passwd");
+		}
+
+		String firstname = userLog[0];
+		String lastname = userLog[1];
+		String address = userLog[2];
+		String mail = userLog[3];
+		String passwd = userLog[4];
+
+		marketplace.getEcInterface().addUser(idUser, firstname, lastname, address, mail);
+		marketplace.getEcInterface().addPasswd(idUser, passwd);
+
+	}
+
+	private void connect(String linesplit) throws RemoteException {
+		String[] userLog = linesplit.split(" ");
+
+		if (userLog.length != 2) {
+			System.out.println("usage /connect mail passwd");
+		}
+		String mail = userLog[0];
+		String passwd = userLog[1];
+
+		IUser iuser = marketplace.getEcInterface().connect(mail, passwd);
+		user = new User(iuser.getId(), iuser.getFirstName(), iuser.getLastName(), iuser.getAddress(), iuser.getMail());
+	}
+
+	private void addCart(String linesplit) {
+		String[] productline = linesplit.split(" ");
+
+		if (productline.length != 2) {
+			System.out.println("usage /addCart idOffer qty");
+		}
+		
+		String productline = userLog[0];
+		String productline = userLog[1];
+		
+		user.putToCartOffer(null, 0);
+
+	}
+
+	private void userDisplay() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void marketDisplay() {
+		// TODO Auto-generated method stub
+
+	}
+}

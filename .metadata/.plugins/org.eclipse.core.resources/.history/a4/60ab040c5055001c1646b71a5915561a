@@ -1,0 +1,30 @@
+package fr.uge.sw.application;
+
+import java.nio.channels.FileChannel;
+import java.util.Scanner;
+
+import fr.uge.sw.marketplace.MarketPlace;
+import fr.uge.sw.user.User;
+
+public class Application {
+	private MarketPlace marketplace;
+	private User user;
+	
+	public void init() {
+		marketplace = new MarketPlace();
+	}
+	
+	public void run() {
+		try (Scanner sc = new Scanner(System.in)) {
+			while (sc.hasNextLong()) {
+				long l = sc.nextLong();
+				bb.putLong(l);
+				bb.flip();
+				out.write(bb);
+				bb.clear();
+
+			}
+			sc.close();
+		}
+	}
+}

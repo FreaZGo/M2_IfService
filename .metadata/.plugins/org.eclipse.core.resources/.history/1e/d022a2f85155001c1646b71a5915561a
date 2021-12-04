@@ -1,0 +1,55 @@
+package fr.uge.sw.application;
+
+import java.net.MalformedURLException;
+import java.nio.channels.FileChannel;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.util.Scanner;
+
+import fr.uge.sw.marketplace.MarketPlace;
+import fr.uge.sw.user.User;
+
+public class Application {
+	private MarketPlace marketplace;
+	private User user;
+	
+	private void init() throws MalformedURLException, RemoteException, NotBoundException {
+		marketplace = new MarketPlace();
+		marketplace.updateMarket();
+	}
+	
+	public void run() throws MalformedURLException, RemoteException, NotBoundException {
+		boolean onApp = true;
+		
+		init();
+		
+		
+		try (Scanner sc = new Scanner(System.in)) {
+			while (sc.hasNextLong() && onApp) {
+				String line = sc.nextLine();
+				
+				String[] lineSplit = line.split(" ", 2);
+				
+				switch (line) {
+				case "quit" :
+					onApp = false;
+					break;
+					
+				case "marketDisplay":
+					marketDisplay();
+					break;
+					
+				case "userDisplay"
+					break;
+				
+				case "
+
+				default:
+					break;
+				}
+
+			}
+			sc.close();
+		}
+	}
+}

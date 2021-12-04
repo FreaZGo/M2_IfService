@@ -1,0 +1,10 @@
+package fr.uge.sw.application;
+
+import java.util.Scanner;
+
+public class Application {
+	Scanner scanner = new Scanner();
+	public void run() {
+		
+	}
+}

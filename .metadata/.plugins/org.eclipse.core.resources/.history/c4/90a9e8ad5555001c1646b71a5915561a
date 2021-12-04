@@ -1,0 +1,117 @@
+package fr.uge.sw.application;
+
+import java.net.MalformedURLException;
+import java.nio.channels.FileChannel;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.util.Scanner;
+
+import fr.uge.sw.marketplace.MarketPlace;
+import fr.uge.sw.user.User;
+
+public class Application {
+	private MarketPlace marketplace;
+	private User user;
+
+	private void init() throws MalformedURLException, RemoteException, NotBoundException {
+		marketplace = new MarketPlace();
+		marketplace.updateMarket();
+	}
+
+	public void run() throws MalformedURLException, RemoteException, NotBoundException {
+		boolean onApp = true;
+
+		init();
+
+
+		try (Scanner sc = new Scanner(System.in)) {
+			while (sc.hasNextLong() && onApp) {
+				String line = sc.nextLine();
+
+				String[] lineSplit = line.split(" ", 2);
+
+				switch (lineSplit[0]) {
+				case "/quit" :
+					onApp = false;
+					break;
+
+				case "/marketDisplay":
+					marketDisplay();
+					break;
+
+				case "/userDisplay":
+					userDisplay();
+					break;
+
+				case "/addCart":
+					addCart();
+					break;
+				
+				case "/connect":
+					connect();
+					break;
+					
+				case "/addUser":
+					addUser(lineSplit[1]);
+					break;
+					
+				case "/priceDisplay":
+					userDisplay();
+					break;
+					
+				case "/purchase":
+					purchase();
+					break;
+
+				default:
+					System.out.println("Unknow command");
+					break;
+				}
+
+			}
+			sc.close();
+		}
+	}
+
+	private void purchase() {
+		user.sendCommand(marketplace.getEcInterface());
+		
+		// TODO Retrait de l'argent du compte en banque
+		
+	}
+
+	private void addUser(String linesplit) throws RemoteException {
+		String idUser = marketplace.getEcInterface().getid();
+		String[] userLog = linesplit.split(" ");
+		
+		String firstname = userLog[0];
+		String lastname = userLog[1];
+		String address = userLog[2];
+		String mail = userLog[3];
+		String passwd = userLog[4];
+		
+		marketplace.getEcInterface().addUser(idUser, firstname, lastname, address, mail);
+		marketplace.getEcInterface().addPasswd(mail, passwd);
+		
+	}
+
+	private void connect() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void addCart() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void userDisplay() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void marketDisplay() {
+		// TODO Auto-generated method stub
+		
+	}
+}

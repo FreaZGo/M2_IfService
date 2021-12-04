@@ -1,0 +1,51 @@
+package fr.uge.sw.user;
+
+import java.rmi.RemoteException;
+import java.util.HashMap;
+import java.util.Objects;
+
+import fr.uge.service_web.project.shared.IOffer;
+
+public class Cart {
+	private HashMap<IOffer, Integer> mapOffers = new HashMap<>();
+	private float totalPrice = 0f;
+
+
+
+	public void addOffer(IOffer offer, int qty) throws RemoteException {
+		Objects.requireNonNull(offer);
+		
+		if (mapOffers.containsKey(offer)) {
+			mapOffers.put(offer, mapOffers.get(offer) + qty);
+		} else {
+			mapOffers.put(offer, qty);			
+		}
+		
+		totalPrice = totalPrice + (offer.getPrice() * qty);
+	}
+
+	public void clearCart() {
+		mapOffers.clear();
+	}
+
+	public float getTotalPrice() {
+		return totalPrice;
+	}
+
+	public boolean removeOffer(IOffer offer, int qty) throws RemoteException {
+		Objects.requireNonNull(offer);
+		
+		if (!mapOffers.containsKey(offer)) {
+			return false;
+		}
+		
+		if (mapOffers.get(offer) < qty) {
+			return false;
+		}
+		
+		mapOffers.put(offer, mapOffers.get(offer) - qty);
+		totalPrice = totalPrice - (offer.getPrice() * qty);
+		
+		return true;
+	}
+}

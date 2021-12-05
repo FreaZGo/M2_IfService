@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://application.sw.uge.fr" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://application.sw.uge.fr" xmlns:intf="http://application.sw.uge.fr" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://application.sw.uge.fr" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="run">
+    <complexType/>
+   </element>
+   <element name="runResponse">
+    <complexType/>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="runResponse">
+
+      <wsdl:part element="impl:runResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="runRequest">
+
+      <wsdl:part element="impl:run" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="Application">
+
+      <wsdl:operation name="run">
+
+         <wsdl:input message="impl:runRequest" name="runRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:runResponse" name="runResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="ApplicationSoapBinding" type="impl:Application">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="run">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="runRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="runResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="ApplicationService">
+
+      <wsdl:port binding="impl:ApplicationSoapBinding" name="Application">
+
+         <wsdlsoap:address location="http://localhost:8080/IfService/services/Application"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

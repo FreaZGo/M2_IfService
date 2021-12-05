@@ -36,10 +36,6 @@ public class User {
 		cart.removeOffer(offer, 0);
 	}
 	
-	public Cart getCart() {
-		return cart;
-	}
-	
 	public void clearCart() {
 		cart.clearCart();
 	}

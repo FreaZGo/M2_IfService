@@ -146,7 +146,6 @@ public class Application {
 			return;
 		}
 		user.sendCommand(marketplace.getEcInterface());
-		user.getCart().clearCart();
 
 		// TODO Retrait de l'argent du compte en banque
 

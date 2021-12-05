@@ -8,6 +8,13 @@ import fr.uge.service_web.ifshare.shared.*;
 
 public class User {
 	private String iduser;
+	public String getIduser() {
+		return iduser;
+	}
+
+	public void setIduser(String iduser) {
+		this.iduser = iduser;
+	}
 
 	private String firstName;
 	private String lastName;
@@ -34,10 +41,6 @@ public class User {
 	
 	public void removeOffer(IOffer offer, int qty) throws RemoteException {
 		cart.removeOffer(offer, 0);
-	}
-	
-	public Cart getCart() {
-		return cart;
 	}
 	
 	public void clearCart() {
@@ -97,12 +100,5 @@ public class User {
 		return "FirstName = " + firstName + ", lastName = " + lastName + ", address = " + address + ", email = " + email;
 	}
 	
-	public String getIduser() {
-		return iduser;
-	}
-	
-	public void setIduser(String iduser) {
-		this.iduser = iduser;
-	}
 	
 }

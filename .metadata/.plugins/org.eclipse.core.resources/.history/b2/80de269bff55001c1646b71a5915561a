@@ -87,7 +87,7 @@ public class Application {
 					break;
 
 				default:
-					System.out.println("Unknown command");
+					System.out.println("Unknow command");
 					break;
 				}
 
@@ -103,8 +103,6 @@ public class Application {
 			System.out.println("User is not connecting");
 			return;
 		}
-		
-		System.out.println("Price : " + user.getCart().getTotalPrice());
 		
 	}
 
@@ -146,7 +144,6 @@ public class Application {
 			return;
 		}
 		user.sendCommand(marketplace.getEcInterface());
-		user.getCart().clearCart();
 
 		// TODO Retrait de l'argent du compte en banque
 

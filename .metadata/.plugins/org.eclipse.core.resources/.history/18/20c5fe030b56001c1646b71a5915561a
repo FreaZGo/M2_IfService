@@ -43,7 +43,7 @@ public class MarketPlace {
 
 	@Override
 	public String toString() {
-		StringJoiner sj = new StringJoiner("\n---------------\n", "\n---------------\n", "\n---------------\n");
+		StringJoiner sj = new StringJoiner("\n---------------", "---------------\n", "---------------");
 		
 		mapOffers.forEach((k, v) -> {
 			
@@ -55,7 +55,7 @@ public class MarketPlace {
 				sj2.add("Price : " + Float.toString(v.getPrice()));
 				sj2.add("Stock : " + Integer.toString(v.getStock()));
 				sj2.add("State : " + v.getProductState().toString());
-				sj2.add("Seller : " + v.getSeller().getFirstName() + " " + v.getSeller().getLastName());
+				sj2.add("Seller : " + v.getSeller().toString());
 				sj.add(sj2.toString());
 				
 			} catch (RemoteException e) {

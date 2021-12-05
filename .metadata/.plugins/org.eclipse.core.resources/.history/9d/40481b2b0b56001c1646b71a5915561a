@@ -43,7 +43,7 @@ public class MarketPlace {
 
 	@Override
 	public String toString() {
-		StringJoiner sj = new StringJoiner("\n---------------\n", "\n---------------\n", "\n---------------\n");
+		StringJoiner sj = new StringJoiner("\n---------------", "---------------\n", "---------------");
 		
 		mapOffers.forEach((k, v) -> {
 			

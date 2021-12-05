@@ -1,0 +1,10 @@
+package fr.uge.sw;
+
+import fr.uge.sw.application.Application;
+
+public class Main {
+	public static void main(String[] args) {
+		Application app = new Application();
+		app.run();
+	}
+}

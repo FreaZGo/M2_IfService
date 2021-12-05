@@ -5,7 +5,8 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-import fr.uge.service_web.project.shared.IOffer;
+import fr.uge.service_web.ifshare.shared.IOffer;
+
 
 public class Cart {
 	private HashMap<IOffer, Integer> mapOffers = new HashMap<>();

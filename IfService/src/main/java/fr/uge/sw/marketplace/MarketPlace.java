@@ -9,23 +9,21 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringJoiner;
 
-import fr.uge.service_web.project.shared.Ecorpsharedinterface;
-import fr.uge.service_web.project.shared.IOffer;
-import fr.uge.service_web.project.shared.IProduct;
+import fr.uge.service_web.ifshare.shared.*;
 
 public class MarketPlace {
 	private final HashMap<Integer, IOffer> mapOffers = new HashMap<>();
 	private Ecorpsharedinterface ecInterface;
 	
 	public MarketPlace() throws MalformedURLException, RemoteException, NotBoundException {
-		this.ecInterface = (Ecorpsharedinterface) Naming.lookup("ecorpsharedinterface");	
+		this.ecInterface = (Ecorpsharedinterface) Naming.lookup("rmi://localhost:1201/EcorpSharedService");	
 	}
 	
 	public void updateMarket() throws MalformedURLException, RemoteException, NotBoundException {
-		 Map<? extends IProduct, ? extends IOffer> map = ecInterface.getOffers();
+		Set<? extends IOffer> set = ecInterface.getOffers();
 		 
-		 map.clear();
-		 map.forEach((product, offer) -> {
+		mapOffers.clear();
+		set.forEach((offer) -> {
 			 try {
 				mapOffers.put(offer.getId(), offer);
 			} catch (RemoteException e) {

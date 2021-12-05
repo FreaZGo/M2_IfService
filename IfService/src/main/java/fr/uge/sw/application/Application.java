@@ -1,16 +1,13 @@
 package fr.uge.sw.application;
 
 import java.net.MalformedURLException;
-import java.nio.channels.FileChannel;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.StringJoiner;
 
-import fr.uge.service_web.project.shared.IOffer;
-import fr.uge.service_web.project.shared.IPurchase;
-import fr.uge.service_web.project.shared.IUser;
+import fr.uge.service_web.ifshare.shared.*;
 import fr.uge.sw.marketplace.MarketPlace;
 import fr.uge.sw.user.User;
 
@@ -27,10 +24,11 @@ public class Application {
 		boolean onApp = true;
 
 		init();
-
+		System.out.println("Init");
+		System.out.println(marketplace.getEcInterface());
 
 		try (Scanner sc = new Scanner(System.in)) {
-			while (sc.hasNextLong() && onApp) {
+			while (sc.hasNextLine() && onApp) {
 				String line = sc.nextLine();
 
 				String[] lineSplit = line.split(" ", 2);
@@ -49,14 +47,26 @@ public class Application {
 					break;
 
 				case "/addCart":
-					addCart(lineSplit[1]);
+					if (lineSplit.length <= 1) {
+						System.out.println("args must be greater than 0");
+						break;
+					}
+					addCart(lineSplit[1]);						
 					break;
 
 				case "/connect":
+					if (lineSplit.length <= 1) {
+						System.out.println("args must be greater than 0");
+						break;
+					}
 					connect(lineSplit[1]);
 					break;
 
 				case "/addUser":
+					if (lineSplit.length <= 1) {
+						System.out.println("args must be greater than 0");
+						break;
+					}
 					addUser(lineSplit[1]);
 					break;
 
@@ -67,11 +77,11 @@ public class Application {
 				case "/purchase":
 					purchase();
 					break;
-					
+
 				case "/purchaseDisplay":
 					purchaseDisplay();
 					break;
-					
+
 				case "/myCartDisplay" :
 					myCartDisplay();
 					break;
@@ -83,6 +93,8 @@ public class Application {
 
 			}
 			sc.close();
+
+			System.out.println("Fin de l'application");
 		}
 	}
 
@@ -92,7 +104,7 @@ public class Application {
 			return;
 		}
 		System.out.println(user.toStringCart());
-		
+
 	}
 
 	private void purchaseDisplay() throws RemoteException {
@@ -101,9 +113,9 @@ public class Application {
 			return;
 		}
 		StringJoiner sj = new StringJoiner("\n---------------", "---------------\n", "---------------");
-		
+
 		List<IPurchase> purchaselist = marketplace.getEcInterface().getpurshasebyuser(user.getIduser());
-		
+
 		for (IPurchase p : purchaselist) {
 			StringJoiner sj2 = new StringJoiner("\n");
 			sj2.add("Name : " + p.getOffer().getProduct().getName());
@@ -112,10 +124,10 @@ public class Application {
 			sj2.add("Qty : " + Integer.toString(p.getQuantity()));
 			sj.add(sj2.toString());
 		}
-		
-					
+
+
 		System.out.println("My purchase : \n" + sj.toString());
-		
+
 	}
 
 	private void purchase() {
@@ -168,16 +180,16 @@ public class Application {
 			System.out.println("User is not connecting");
 			return;
 		}
-		
+
 		String[] productline = linesplit.split(" ");
 
 		if (productline.length != 2) {
 			System.out.println("usage /addCart idOffer qty");
 		}
-		
+
 		IOffer offer = marketplace.getOffer(Integer.parseInt(productline[0]));
 		int qty = Integer.parseInt(productline[1]);
-		
+
 		user.putToCartOffer(offer, qty);
 
 	}

@@ -3,8 +3,8 @@ package fr.uge.sw.user;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 
-import fr.uge.service_web.project.shared.Ecorpsharedinterface;
-import fr.uge.service_web.project.shared.IOffer;
+import fr.uge.service_web.ifshare.shared.*;
+
 
 public class User {
 	private String iduser;
